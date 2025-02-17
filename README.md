@@ -6,216 +6,243 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Love & Labyrinth</title>
   <style>
-    /* Global and animated background */
+    /* General Reset and Fonts */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
-      margin: 0;
-      padding: 0;
-      font-family: 'Roboto', sans-serif;
-      background: linear-gradient(45deg, #ff9a9e, #fad0c4, #fad0c4);
-      background-size: 400% 400%;
-      animation: gradientBG 15s ease infinite;
-      color: #fff;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+      min-height: 100vh;
       display: flex;
       flex-direction: column;
       align-items: center;
-      min-height: 100vh;
-    }
-    @keyframes gradientBG {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
-    }
-    .container {
-      width: 90%;
-      max-width: 600px;
-      margin: 20px;
-      text-align: center;
+      padding: 10px;
     }
     h1 {
-      font-size: 2em;
+      margin-bottom: 10px;
+    }
+    /* Dynamic Quotes Section */
+    .quote-section {
+      background: rgba(255, 255, 255, 0.8);
+      border-radius: 8px;
+      padding: 20px;
+      width: 100%;
+      max-width: 600px;
+      text-align: center;
       margin-bottom: 20px;
     }
-    /* Quotes slider */
-    .quote-container {
-      margin-bottom: 30px;
+    .quote-section p {
+      font-size: 1.3em;
+      margin-bottom: 10px;
     }
-    .quote {
-      font-size: 1.4em;
-      margin: 10px 0;
-      opacity: 0;
-      transition: opacity 1s ease-in-out;
+    .quote-section button {
+      padding: 8px 16px;
+      font-size: 1em;
+      border: none;
+      border-radius: 4px;
+      background: #ff6f61;
+      color: white;
+      cursor: pointer;
     }
-    .quote.visible {
-      opacity: 1;
+    /* Maze Section */
+    .maze-section {
+      background: rgba(255, 255, 255, 0.9);
+      border-radius: 8px;
+      padding: 10px;
+      width: 100%;
+      max-width: 400px;
+      margin-bottom: 20px;
     }
-    /* Maze styles */
     .maze-container {
       display: grid;
       grid-template-columns: repeat(10, 1fr);
-      grid-gap: 2px;
-      margin: 0 auto;
-      max-width: 90vw;
+      gap: 1px;
+      background: #333;
     }
     .maze-cell {
+      background: white;
       width: 100%;
       padding-top: 100%; /* 1:1 Aspect Ratio */
       position: relative;
     }
-    .maze-cell div {
+    /* Wall cells will have a darker background */
+    .maze-cell.wall {
+      background: #333;
+    }
+    /* Player marker */
+    .maze-cell.player::after {
+      content: "☺";
+      font-size: 1.5em;
+      color: #ff6f61;
       position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
     }
-    .wall {
-      background-color: #333;
+    /* Heart/Goal marker */
+    .maze-cell.goal::after {
+      content: "❤";
+      font-size: 1.5em;
+      color: red;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
     }
-    .path {
-      background-color: #fff;
+    /* Arrow Buttons */
+    .controls {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+      max-width: 400px;
     }
-    .player {
-      background-color: #ff6f61;
-      border-radius: 50%;
+    .controls button {
+      background: #ff6f61;
+      color: white;
+      border: none;
+      padding: 10px 16px;
+      font-size: 1.2em;
+      border-radius: 4px;
+      cursor: pointer;
+      flex: 1 1 30%;
     }
-    .heart {
-      background-image: url('https://i.imgur.com/OJ8N6fM.png');
-      background-size: cover;
-    }
-    /* Mobile adjustments */
-    @media (max-width: 600px) {
-      .quote { font-size: 1.2em; }
-      h1 { font-size: 1.8em; }
+    @media (max-width: 400px) {
+      .quote-section p { font-size: 1.1em; }
+      .controls button { font-size: 1em; padding: 8px 12px; }
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <h1>Love & Labyrinth</h1>
-    <!-- Dynamic Love Quotes -->
-    <div class="quote-container">
-      <p id="quote" class="quote"></p>
-    </div>
-    <!-- Maze -->
+  <!-- Dynamic Love Quotes Section -->
+  <div class="quote-section">
+    <h1>Daily Dose of Love</h1>
+    <p id="quote">"Your love is my endless inspiration."</p>
+    <button onclick="nextQuote()">Next Quote</button>
+  </div>
+
+  <!-- Maze Game Section -->
+  <div class="maze-section">
+    <h1>Find the Heart</h1>
     <div id="maze" class="maze-container"></div>
   </div>
 
+  <!-- On-Screen Arrow Buttons for Maze Navigation -->
+  <div class="controls">
+    <button onclick="movePlayer('up')">&#8593;</button>
+    <button onclick="movePlayer('left')">&#8592;</button>
+    <button onclick="movePlayer('down')">&#8595;</button>
+    <button onclick="movePlayer('right')">&#8594;</button>
+  </div>
+
   <script>
-    /* Dynamic Quotes Section */
+    /* Dynamic Quotes Logic */
     const quotes = [
-      "Love is the labyrinth where every turn unveils a new wonder.",
-      "In the maze of life, your love is my guiding star.",
-      "Every step with you leads to a heart filled with hope."
+      "Your love is my endless inspiration.",
+      "In your eyes, I find my home.",
+      "Every heartbeat sings a song of us.",
+      "You turn my every moment into magic.",
+      "Our love is a journey with no end."
     ];
-    let currentQuote = 0;
-    const quoteElement = document.getElementById("quote");
-    function showQuote(index) {
-      quoteElement.classList.remove("visible");
-      setTimeout(() => {
-        quoteElement.textContent = quotes[index];
-        quoteElement.classList.add("visible");
-      }, 500);
+    let quoteIndex = 0;
+    function nextQuote() {
+      quoteIndex = (quoteIndex + 1) % quotes.length;
+      document.getElementById("quote").textContent = '"' + quotes[quoteIndex] + '"';
     }
-    showQuote(currentQuote);
-    setInterval(() => {
-      currentQuote = (currentQuote + 1) % quotes.length;
-      showQuote(currentQuote);
-    }, 8000);
+    // Auto-rotate quotes every 8 seconds
+    setInterval(nextQuote, 8000);
 
-    /* Maze Section */
-    // Maze represented as a 2D array (0 = path, 1 = wall)
-    const mazeData = [
-      [0,1,0,0,0,0,1,0,0,0],
-      [0,1,0,1,1,0,1,1,1,0],
-      [0,0,0,1,0,0,0,0,1,0],
-      [1,1,0,1,0,1,1,0,1,0],
-      [0,0,0,0,0,1,0,0,0,0],
-      [0,1,1,1,0,1,0,1,1,0],
-      [0,1,0,0,0,0,0,1,0,0],
-      [0,1,0,1,1,1,0,1,0,1],
-      [0,0,0,1,0,0,0,0,0,0],
-      [1,1,0,0,0,1,1,1,0,0]
-    ];
-    const rows = mazeData.length;
-    const cols = mazeData[0].length;
+    /* Maze Game Logic */
     const mazeContainer = document.getElementById("maze");
-    let cells = []; // To store cell elements
+    const gridSize = 10; // 10x10 maze
+    let maze = []; // 2D array for maze cells
+    let playerPos = { r: 0, c: 0 };
+    const goalPos = { r: gridSize - 1, c: gridSize - 1 };
 
-    // Create maze grid
-    for (let i = 0; i < rows; i++) {
-      cells[i] = [];
-      for (let j = 0; j < cols; j++) {
-        const cellDiv = document.createElement("div");
-        cellDiv.classList.add("maze-cell");
-        const innerDiv = document.createElement("div");
-        innerDiv.classList.add(mazeData[i][j] === 1 ? "wall" : "path");
-        cellDiv.appendChild(innerDiv);
-        mazeContainer.appendChild(cellDiv);
-        cells[i][j] = innerDiv;
+    // Simple maze generation: 0 for path, 1 for wall.
+    // For simplicity, we'll hardcode a simple maze pattern.
+    // (You can later replace this with a proper randomized maze generator.)
+    function generateMaze() {
+      maze = [];
+      for (let r = 0; r < gridSize; r++) {
+        let row = [];
+        for (let c = 0; c < gridSize; c++) {
+          // Create outer walls
+          if (r === 0 || c === 0 || r === gridSize - 1 || c === gridSize - 1) {
+            row.push(1);
+          } else {
+            // Randomly place walls (with 30% chance) but ensure start and goal are open.
+            row.push(Math.random() < 0.3 ? 1 : 0);
+          }
+        }
+        maze.push(row);
       }
+      // Ensure start and goal are clear
+      maze[playerPos.r][playerPos.c] = 0;
+      maze[goalPos.r][goalPos.c] = 0;
     }
-
-    // Define positions: player starts at top-left, heart is at bottom-right.
-    let playerPos = { row: 0, col: 0 };
-    const endPos = { row: rows - 1, col: cols - 1 };
-
-    // Update maze with player and heart markers.
-    function updateMaze() {
-      for (let i = 0; i < rows; i++) {
-        for (let j = 0; j < cols; j++) {
-          cells[i][j].classList.remove("player", "heart");
+    
+    // Render maze on screen
+    function renderMaze() {
+      mazeContainer.innerHTML = "";
+      for (let r = 0; r < gridSize; r++) {
+        for (let c = 0; c < gridSize; c++) {
+          const cell = document.createElement("div");
+          cell.className = "maze-cell";
+          if (maze[r][c] === 1) {
+            cell.classList.add("wall");
+          }
+          if (r === playerPos.r && c === playerPos.c) {
+            cell.classList.add("player");
+          }
+          if (r === goalPos.r && c === goalPos.c) {
+            cell.classList.add("goal");
+          }
+          mazeContainer.appendChild(cell);
         }
       }
-      cells[playerPos.row][playerPos.col].classList.add("player");
-      cells[endPos.row][endPos.col].classList.add("heart");
     }
-    updateMaze();
-
-    // Function to move player if allowed.
-    function movePlayer(deltaRow, deltaCol) {
-      const newRow = playerPos.row + deltaRow;
-      const newCol = playerPos.col + deltaCol;
-      if (newRow >= 0 && newRow < rows && newCol >= 0 && newCol < cols && mazeData[newRow][newCol] === 0) {
-        playerPos = { row: newRow, col: newCol };
-        updateMaze();
+    
+    // Check if move is valid (not out of bounds and not a wall)
+    function canMove(newR, newC) {
+      return newR >= 0 && newR < gridSize &&
+             newC >= 0 && newC < gridSize &&
+             maze[newR][newC] === 0;
+    }
+    
+    // Move player in given direction
+    function movePlayer(direction) {
+      let newR = playerPos.r;
+      let newC = playerPos.c;
+      if (direction === "up") newR--;
+      else if (direction === "down") newR++;
+      else if (direction === "left") newC--;
+      else if (direction === "right") newC++;
+      
+      if (canMove(newR, newC)) {
+        playerPos = { r: newR, c: newC };
+        renderMaze();
         checkWin();
       }
     }
+    
     function checkWin() {
-      if (playerPos.row === endPos.row && playerPos.col === endPos.col) {
-        alert("Congratulations! You reached the heart!");
-        playerPos = { row: 0, col: 0 };
-        updateMaze();
+      if (playerPos.r === goalPos.r && playerPos.c === goalPos.c) {
+        setTimeout(() => {
+          alert("Congratulations! You reached the heart!");
+          // Reset maze
+          playerPos = { r: 0, c: 0 };
+          generateMaze();
+          renderMaze();
+        }, 100);
       }
     }
-    // Keyboard controls for desktop.
-    document.addEventListener("keydown", (e) => {
-      switch(e.key) {
-        case "ArrowUp": movePlayer(-1, 0); break;
-        case "ArrowDown": movePlayer(1, 0); break;
-        case "ArrowLeft": movePlayer(0, -1); break;
-        case "ArrowRight": movePlayer(0, 1); break;
-      }
-    });
-    // Swipe detection for mobile.
-    let touchStartX = 0, touchStartY = 0;
-    document.addEventListener("touchstart", e => {
-      touchStartX = e.changedTouches[0].screenX;
-      touchStartY = e.changedTouches[0].screenY;
-    });
-    document.addEventListener("touchend", e => {
-      let deltaX = e.changedTouches[0].screenX - touchStartX;
-      let deltaY = e.changedTouches[0].screenY - touchStartY;
-      if (Math.abs(deltaX) > Math.abs(deltaY)) {
-        if (deltaX > 30) movePlayer(0, 1);
-        else if (deltaX < -30) movePlayer(0, -1);
-      } else {
-        if (deltaY > 30) movePlayer(1, 0);
-        else if (deltaY < -30) movePlayer(-1, 0);
-      }
-    });
+    
+    // Initialize game
+    generateMaze();
+    renderMaze();
   </script>
 </body>
 </html>
+
 
 
