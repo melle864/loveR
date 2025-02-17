@@ -2,132 +2,154 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Will You Be My Love?</title>
-    <style>
-        body {
-            background-color: red;
-            color: white;
-            font-family: 'Arial', sans-serif;
-            text-align: center;
-            margin: 0;
-            padding: 0;
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-            position: relative;
-            overflow: hidden;
-            background-image: url('https://www.example.com/heart-background.png'); /* Replace with your heart background image */
-            background-size: cover;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Love & Poetry</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Georgia', serif;
+      background: linear-gradient(45deg, #ff9a9e, #fad0c4, #fad0c4);
+      background-size: 400% 400%;
+      animation: gradientBG 15s ease infinite;
+      color: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      overflow: hidden;
+    }
 
-        .moon {
-            position: absolute;
-            top: 20px;
-            left: 20px;
-            width: 60px;
-            height: 60px;
-            background-image: url('https://www.example.com/moon.png'); /* Replace with your moon image */
-            background-size: cover;
-        }
+    @keyframes gradientBG {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
 
-        h1 {
-            font-size: 2.5em;
-            margin-bottom: 40px;
-            text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.7);
-        }
+    .container {
+      background: rgba(0, 0, 0, 0.5);
+      padding: 30px 40px;
+      border-radius: 10px;
+      text-align: center;
+      max-width: 90%;
+    }
 
-        .button {
-            font-size: 1.5em;
-            padding: 15px 25px;
-            margin: 20px;
-            border: none;
-            border-radius: 12px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
-        }
+    h1 {
+      margin-bottom: 20px;
+      font-size: 2.5em;
+    }
 
-        .yes {
-            background-color: #4CAF50;
-        }
+    .quote {
+      font-size: 1.5em;
+      line-height: 1.4;
+      opacity: 0;
+      transition: opacity 1s ease-in-out;
+      margin: 0;
+    }
 
-        .no {
-            background-color: #f44336;
-        }
+    .quote.visible {
+      opacity: 1;
+    }
 
-        .yes:hover, .no:hover {
-            transform: scale(1.1);
-            opacity: 0.8;
-        }
+    .author {
+      margin-top: 10px;
+      font-size: 1.2em;
+      font-style: italic;
+      opacity: 0;
+      transition: opacity 1s ease-in-out;
+    }
 
-        .yes.growing {
-            font-size: 4em;
-            padding: 40px 80px;
-        }
+    .author.visible {
+      opacity: 1;
+    }
 
-        .hidden {
-            display: none;
-        }
+    .next-btn {
+      margin-top: 25px;
+      padding: 10px 20px;
+      font-size: 1em;
+      background: #ff6f61;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      color: #fff;
+      transition: background 0.3s ease;
+    }
 
-        .message {
-            font-size: 1.8em;
-            color: white;
-            margin-top: 20px;
-            text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.7);
-        }
-    </style>
+    .next-btn:hover {
+      background: #ff3b2e;
+    }
+  </style>
 </head>
 <body>
+  <div class="container">
+    <h1>Love & Poetry</h1>
+    <p id="quote" class="quote"></p>
+    <p id="author" class="author"></p>
+    <button id="nextBtn" class="next-btn">Next</button>
+  </div>
 
-    <!-- Moon -->
-    <div class="moon"></div>
+  <script>
+    // Array of love quotes and poems
+    const quotes = [
+      { 
+        quote: "Love is not just looking at each other, but looking in the same direction.", 
+        author: "Antoine de Saint-Exupéry" 
+      },
+      { 
+        quote: "I have waited for you as one waits for the moon to rise, patiently and with endless hope.", 
+        author: "Unknown" 
+      },
+      { 
+        quote: "Every moment without you is a journey through the stars, searching for the light of your smile.", 
+        author: "Unknown" 
+      },
+      { 
+        quote: "Your love is a poem written in the ink of passion and whispered in the silence of the night.", 
+        author: "Unknown" 
+      },
+      { 
+        quote: "In your eyes, I see the universe unfolding its infinite beauty, a love story beyond time.", 
+        author: "Unknown" 
+      }
+    ];
 
-    <!-- Question -->
-    <h1>Will you be the love of my life?</h1>
+    let currentQuote = 0;
+    const quoteElement = document.getElementById("quote");
+    const authorElement = document.getElementById("author");
+    const nextBtn = document.getElementById("nextBtn");
 
-    <!-- Buttons -->
-    <button class="button yes" id="yesBtn">Yes</button>
-    <button class="button no" id="noBtn">No</button>
+    function showQuote(index) {
+      // Remove visibility for fade-out effect
+      quoteElement.classList.remove("visible");
+      authorElement.classList.remove("visible");
 
-    <!-- Messages -->
-    <div class="message" id="message"></div>
+      // Wait for the fade-out to complete, then update text
+      setTimeout(() => {
+        const { quote, author } = quotes[index];
+        quoteElement.textContent = quote;
+        authorElement.textContent = author ? `- ${author}` : "";
+        // Fade-in the new quote
+        quoteElement.classList.add("visible");
+        authorElement.classList.add("visible");
+      }, 500);
+    }
 
-    <script>
-        const yesButton = document.getElementById('yesBtn');
-        const noButton = document.getElementById('noBtn');
-        const message = document.getElementById('message');
-        let noClickCount = 0;
+    // Manual change on button click
+    nextBtn.addEventListener("click", () => {
+      currentQuote = (currentQuote + 1) % quotes.length;
+      showQuote(currentQuote);
+    });
 
-        // When "No" button is clicked
-        noButton.addEventListener('click', function() {
-            noClickCount++;
-            yesButton.classList.add('growing');
-            if (noClickCount === 1) {
-                message.textContent = 'Wrong button?';
-            } else if (noClickCount === 2) {
-                message.textContent = 'What are you doing? Press Yes!';
-            } else if (noClickCount === 3) {
-                message.textContent = 'Please?? 🙏';
-            } else if (noClickCount === 4) {
-                message.textContent = 'Press Yes and I\'ll get you chocolate!';
-            } else if (noClickCount === 5) {
-                message.textContent = 'B2olek eh ya bt enty dosy 3la el zorar el 25dar?';
-            } else if (noClickCount === 6) {
-                yesButton.style.fontSize = '10em';
-                yesButton.style.padding = '150px 250px';
-                message.textContent = 'Now... PRESS YES!';
-            }
-        });
+    // Automatic cycle every 10 seconds
+    setInterval(() => {
+      currentQuote = (currentQuote + 1) % quotes.length;
+      showQuote(currentQuote);
+    }, 10000);
 
-        // When "Yes" button is clicked, navigate to the second page
-        yesButton.addEventListener('click', function() {
-            window.location.href = 'timer.html'; // Redirect to the second page
-        });
-    </script>
-
+    // Show the first quote on page load
+    showQuote(currentQuote);
+  </script>
 </body>
 </html>
+
