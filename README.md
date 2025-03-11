@@ -1,361 +1,261 @@
-
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
-  <title>Love Quotes, Poems & Labyrinth ❤️</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Celebrating Your Journey, Rodaina</title>
   <style>
-    /* Global Reset & Base Styles */
-    * { margin: 0; padding: 0; box-sizing: border-box; }
+    /* Global Styles */
     body {
-      background: linear-gradient(to bottom right, red, pink);
-      color: white;
-      text-align: center;
-      font-family: 'Arial', sans-serif;
-      padding: 20px;
-      overflow-x: hidden;
-    }
-    h1 {
-      font-size: 28px;
-      text-shadow: 2px 2px 4px black;
-      margin-bottom: 10px;
-    }
-    /* Navigation Bar */
-    nav {
-      position: fixed;
-      top: 0;
-      width: 100%;
-      background: rgba(0, 0, 0, 0.7);
-      padding: 10px 0;
-      z-index: 10;
-    }
-    nav a {
-      color: gold;
-      text-decoration: none;
-      margin: 0 15px;
-      font-size: 1.1rem;
-      font-weight: bold;
-    }
-    /* Floating Hearts Animation */
-    .heart {
-      position: absolute;
-      font-size: 30px;
-      opacity: 0.8;
-      animation: floatUp 5s infinite ease-in-out;
-    }
-    @keyframes floatUp {
-      0% { transform: translateY(100vh); opacity: 1; }
-      50% { opacity: 0.8; }
-      100% { transform: translateY(-10vh); opacity: 0; }
-    }
-    /* Background Floating Quotes (for extra life) */
-    .bg-quotes {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      pointer-events: none;
-      z-index: -1;
-      font-family: 'Arial', sans-serif;
-      color: rgba(255,255,255,0.3);
-      overflow: hidden;
-    }
-    .bg-quotes span {
-      position: absolute;
-      font-size: 3rem;
-      text-shadow: 2px 2px 8px black;
-      animation: float 25s linear infinite;
-    }
-    @keyframes float {
-      0% { transform: translateY(100vh) rotate(0deg); opacity: 0.3; }
-      50% { opacity: 0.5; }
-      100% { transform: translateY(-150vh) rotate(360deg); opacity: 0.3; }
-    }
-    /* Quote & Poems Section */
-    .quote-container {
-      background: rgba(0, 0, 0, 0.6);
-      padding: 20px;
-      border-radius: 15px;
-      margin-top: 80px;
-      font-size: 20px;
-      max-width: 90%;
-      margin-left: auto;
-      margin-right: auto;
-    }
-    .nav-buttons {
-      margin-top: 20px;
-      display: flex;
-      justify-content: center;
-      gap: 20px;
-    }
-    .btn {
-      background: gold;
-      color: black;
-      padding: 10px 20px;
-      font-size: 18px;
-      border: none;
-      border-radius: 10px;
-      cursor: pointer;
-      transition: 0.3s;
-    }
-    .btn:hover {
-      background: white;
-    }
-    /* Labyrinth (Maze) Section */
-    .maze-section {
-      background: rgba(255,255,255,0.98);
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(to bottom, #a1c4fd, #c2e9fb); /* Sea-inspired gradient */
       color: #333;
-      border-radius: 10px;
-      padding: 15px;
-      margin: 20px auto 140px;
-      max-width: 400px;
+      line-height: 1.6;
     }
-    .maze-section h1 {
-      color: #333;
-      font-size: 1.2rem;
-      margin-bottom: 10px;
-    }
-    .maze-container {
-      display: grid;
-      grid-template-columns: repeat(8, 1fr);
-      gap: 2px;
-    }
-    .maze-cell {
-      width: 100%;
-      padding-top: 100%;
-      position: relative;
-      border: 2px solid #333;
-      background: #fff;
-    }
-    .maze-cell.open-top { border-top: none; }
-    .maze-cell.open-right { border-right: none; }
-    .maze-cell.open-bottom { border-bottom: none; }
-    .maze-cell.open-left { border-left: none; }
-    .maze-cell.player::after,
-    .maze-cell.goal::after {
-      position: absolute;
-      top: 50%; left: 50%;
-      transform: translate(-50%, -50%);
-      font-size: 1.6rem;
-    }
-    .maze-cell.player::after { content: "☺"; color: #ff6f61; }
-    .maze-cell.goal::after { content: "❤"; color: red; }
-    /* On-screen Maze Controls */
-    .controls {
-      position: fixed;
-      bottom: 20px;
-      left: 50%;
-      transform: translateX(-50%);
-      display: flex;
-      gap: 10px;
-      width: 90%;
-      max-width: 400px;
-      z-index: 5;
-    }
-    .controls button {
-      flex: 1;
-      padding: 15px 0;
-      background: #ff6f61;
-      border: none;
-      border-radius: 5px;
+    header {
+      background: linear-gradient(135deg, #00BFFF, #7F00FF); /* Blue to purple */
       color: #fff;
-      font-size: 1.2rem;
-      cursor: pointer;
+      text-align: center;
+      padding: 50px 20px;
     }
-    @media (max-width: 400px) {
-      .quote-container { font-size: 18px; }
-      .btn { font-size: 16px; padding: 8px 16px; }
-      .controls button { font-size: 1rem; padding: 12px 0; }
+    header h1 {
+      font-size: 3em;
+      margin: 0;
+      letter-spacing: 2px;
+    }
+    header p {
+      font-size: 1.2em;
+      margin-top: 10px;
+    }
+    section {
+      padding: 40px 20px;
+      max-width: 1000px;
+      margin: auto;
+    }
+    /* Heartfelt Message */
+    .message {
+      background: #fff;
+      padding: 30px;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      margin-bottom: 40px;
+    }
+    .message h2 {
+      margin-top: 0;
+      color: #007ACC; /* Deep blue tone */
+    }
+    .message p {
+      margin-bottom: 20px;
+    }
+    /* Memory Board */
+    .memory-board {
+      margin-bottom: 40px;
+    }
+    .memory-board h2 {
+      text-align: center;
+      color: #007ACC;
+    }
+    .memory-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 15px;
+      margin-top: 20px;
+    }
+    .memory-grid .card {
+      background: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      transition: transform 0.3s ease;
+      cursor: default;
+    }
+    .memory-grid .card:hover {
+      transform: translateY(-5px);
+    }
+    .memory-grid .card h3 {
+      margin-top: 0;
+      color: #7F00FF;
+    }
+    /* Quotes & Inspirations */
+    .quotes {
+      background: #fff;
+      padding: 30px;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      margin-bottom: 40px;
+    }
+    .quotes h2 {
+      text-align: center;
+      color: #007ACC;
+    }
+    .quotes blockquote {
+      font-style: italic;
+      border-left: 5px solid #7F00FF;
+      margin: 20px 0;
+      padding-left: 20px;
+      color: #555;
+    }
+    /* Timeline */
+    .timeline {
+      margin-bottom: 40px;
+    }
+    .timeline h2 {
+      text-align: center;
+      color: #007ACC;
+    }
+    .timeline-item {
+      margin-bottom: 30px;
+      position: relative;
+      padding-left: 40px;
+    }
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 20px;
+      height: 20px;
+      background: #7F00FF;
+      border-radius: 50%;
+    }
+    .timeline-item h3 {
+      margin: 0;
+      font-size: 1.2em;
+      color: #007ACC;
+    }
+    .timeline-item p {
+      margin: 5px 0 0 0;
+    }
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 20px;
+      background: #7F00FF;
+      color: #fff;
+    }
+    /* Responsive Styles */
+    @media (max-width: 768px) {
+      header {
+        padding: 40px 10px;
+      }
+      header h1 {
+        font-size: 2.5em;
+      }
+      header p {
+        font-size: 1em;
+      }
+      section {
+        padding: 30px 10px;
+      }
+      .message, .quotes, .timeline, .memory-board {
+        padding: 20px;
+      }
+      .memory-grid {
+        gap: 10px;
+      }
     }
   </style>
 </head>
 <body>
-  <!-- Navigation Bar -->
-  <nav>
-    <a href="love.html">Forever Us</a>
-    <a href="#quotes">Love Words</a>
-  </nav>
-  
-  <!-- Background Floating Quotes -->
-  <div class="bg-quotes">
-    <span style="top: 5%; left: 10%; animation-delay: 0s;">"Eternity in a glance"</span>
-    <span style="top: 15%; left: 70%; animation-delay: 3s;">"In your eyes, I see forever"</span>
-    <span style="top: 35%; left: 30%; animation-delay: 5s;">"Hearts beat as one"</span>
-    <span style="top: 55%; left: 80%; animation-delay: 2s;">"Whispers of passion"</span>
-    <span style="top: 70%; left: 20%; animation-delay: 6s;">"Dreams woven in love"</span>
-    <span style="top: 85%; left: 50%; animation-delay: 4s;">"Souls entwined in magic"</span>
-  </div>
-  
-  <!-- Love Quotes & Poems Section -->
-  <section id="quotes" class="quote-container">
-    <h1>Love in Words ❤️</h1>
-    <div id="quoteDisplay">"You are my today and all of my tomorrows. ❤️"</div>
-    <div class="nav-buttons">
-      <button class="btn" onclick="prevQuote()">⬅ Previous</button>
-      <button class="btn" onclick="nextQuote()">Next ➡</button>
+  <header>
+    <h1>Celebrating Your Journey, Rodaina</h1>
+    <p>One Year of Courage, Beauty & Personal Transformation</p>
+  </header>
+
+  <section class="message">
+    <h2>A Heartfelt Message for You</h2>
+    <p>
+      Dear Rodaina, you are not only incredibly beautiful with the kindest heart, but your inner strength and compassion shine brighter than the sun on the sea. Every choice you’ve made, and every sacrifice you’ve endured on this journey, fills me with pride. I am endlessly proud of you—not just for today, but for every step you take, and every decision you make in the future.
+    </p>
+    <p>
+      I admire you for having the courage to transform and for choosing a path that reflects your true self. You have my complete trust, and I dream of a future where we share our lives as husband and wife. Your journey is an inspiration, and I am honored to witness your growth.
+    </p>
+  </section>
+
+  <!-- Memory Board Section -->
+  <section class="memory-board">
+    <h2>Memory Board</h2>
+    <div class="memory-grid">
+      <div class="card">
+        <h3>Remembering Your Bravery</h3>
+        <p>Your decision on March 12, 2024, to embrace the hijab was a bold and beautiful act of self-love. It marked the start of an extraordinary journey.</p>
+      </div>
+      <div class="card">
+        <h3>Your Kindness Shines</h3>
+        <p>Your gentle nature and the kindness you show to everyone make you truly special. I admire the way you light up every room.</p>
+      </div>
+      <div class="card">
+        <h3>Your Inner Strength</h3>
+        <p>You have fought hard to transform your life. Every sacrifice you’ve made is a testament to your unwavering courage.</p>
+      </div>
+      <div class="card">
+        <h3>Dreams of Our Future</h3>
+        <p>I cherish every moment with you and dream of a future where we share our lives together as husband and wife.</p>
+      </div>
+      <div class="card">
+        <h3>Your Compassion</h3>
+        <p>Your ability to care for others with genuine warmth makes the world a better place. Your compassion inspires everyone around you.</p>
+      </div>
+      <div class="card">
+        <h3>Unwavering Trust</h3>
+        <p>I trust you completely with my heart and future. Your resilience and integrity are the pillars of your extraordinary spirit.</p>
+      </div>
     </div>
-    <br>
-    <button class="btn" onclick="window.location.href='love.html'">Back to Love Page ❤️</button>
   </section>
-  
-  <!-- Labyrinth (Maze) Section -->
-  <section class="maze-section">
-    <h1>Labyrinth of Love</h1>
-    <div id="maze" class="maze-container"></div>
+
+  <section class="quotes">
+    <h2>Inspiring Words for You</h2>
+    <blockquote>"You are the author of your own beautiful story, and every chapter is filled with courage and grace."</blockquote>
+    <blockquote>"Your transformation inspires those around you to embrace change and find beauty in every choice."</blockquote>
+    <blockquote>"May your eyes forever shine with kindness and your heart be as deep and endless as the sea."</blockquote>
+    <blockquote>"Your journey is like a voyage across the boundless blue; every wave reflects your strength and gentle spirit."</blockquote>
+    <blockquote>"Embrace each moment, for your kind heart and brave soul light up the world around you."</blockquote>
   </section>
-  
-  <!-- On-screen Maze Controls -->
-  <div class="controls">
-    <button onclick="move('up')">&#8593;</button>
-    <button onclick="move('left')">&#8592;</button>
-    <button onclick="move('down')">&#8595;</button>
-    <button onclick="move('right')">&#8594;</button>
-  </div>
-  
+
+  <section class="timeline">
+    <h2>Your Journey So Far</h2>
+    <div class="timeline-item">
+      <h3>Mar 12, 2024</h3>
+      <p>You took a courageous step by choosing the hijab, marking the beginning of your inspiring transformation.</p>
+    </div>
+    <div class="timeline-item">
+      <h3>A New Path</h3>
+      <p>You fought hard to change and grow, leaving behind old habits to embrace a life of authenticity, strength, and love.</p>
+    </div>
+    <div class="timeline-item">
+      <h3>Today</h3>
+      <p>You stand as a beacon of beauty, kindness, and unwavering determination. I am so proud of every choice you make, and I trust you completely as you continue on this journey.</p>
+    </div>
+  </section>
+
+  <footer>
+    <p>&copy; 2025 Celebrating Your Journey, Rodaina</p>
+  </footer>
+
   <script>
-    /* Love Quotes Logic */
-    const quotes = [
-      "You are my today and all of my tomorrows. ❤️",
-      "I love you more than words can express, more than the stars in the sky. ✨",
-      "In your eyes, I see my forever. 💕",
-      "You are the melody my heart has always wanted to sing. 🎶",
-      "Loving you is my favorite adventure. 🌍",
-      "You and me—always and forever. 🔗",
-      "Every moment with you is a beautiful memory in the making. 📖",
-      "You are my greatest love story. 💌",
-      "If love were a journey, I’d walk it forever with you. 🚶‍♂️❤️",
-      "You are the missing piece I never knew I needed. 🧩",
-      "Your love is the most beautiful thing I have ever known. 🌹",
-      "Forever isn’t long enough to love you. ⏳",
-      "I found my home in your heart. 🏡❤️",
-      "Every heartbeat echoes our shared dreams. – Unknown",
-      "Together, our souls write an endless poem. – Unknown",
-      "In your smile, I see my destiny. – Unknown",
-      "Our love is a timeless dance of passion. – Unknown",
-      "With you, every day is a celebration of life. – Unknown",
-      "Our hearts beat as one, forever entwined. – Unknown",
-      "Love begins and ends with you. – Unknown"
-    ];
-    let currentQuoteIndex = 0;
-    document.getElementById("quoteDisplay").innerText = quotes[currentQuoteIndex];
-    function nextQuote() {
-      currentQuoteIndex = (currentQuoteIndex + 1) % quotes.length;
-      document.getElementById("quoteDisplay").innerText = quotes[currentQuoteIndex];
-    }
-    function prevQuote() {
-      currentQuoteIndex = (currentQuoteIndex - 1 + quotes.length) % quotes.length;
-      document.getElementById("quoteDisplay").innerText = quotes[currentQuoteIndex];
-    }
-    
-    /* ------------------------------
-         Maze Game: Recursive Backtracking
-    ------------------------------ */
-    const gridSize = 8; // 8x8 maze grid
-    const mazeEl = document.getElementById("maze");
-    let mazeGrid = [];
-    let playerPos = { i: 0, j: 0 };
-    const goalPos = { i: gridSize - 1, j: gridSize - 1 };
-    
-    function initMaze() {
-      mazeGrid = [];
-      for (let i = 0; i < gridSize; i++) {
-        mazeGrid[i] = [];
-        for (let j = 0; j < gridSize; j++) {
-          mazeGrid[i][j] = { walls: { top: true, right: true, bottom: true, left: true }, visited: false };
-        }
+    // Lightbox functionality for gallery (if needed in future)
+    document.querySelectorAll('.gallery-grid img').forEach(img => {
+      img.addEventListener('click', function() {
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = document.getElementById('lightbox-img');
+        lightbox.style.display = 'flex';
+        lightboxImg.src = this.src;
+      });
+    });
+
+    // Close lightbox when clicking on the close button
+    document.querySelector('.lightbox .close').addEventListener('click', function() {
+      document.getElementById('lightbox').style.display = 'none';
+    });
+
+    // Close lightbox when clicking outside the image
+    document.getElementById('lightbox').addEventListener('click', function(e) {
+      if (e.target === this) {
+        this.style.display = 'none';
       }
-      let stack = [];
-      let current = { i: 0, j: 0 };
-      mazeGrid[0][0].visited = true;
-      while (true) {
-        let neighbors = [];
-        if (current.i > 0 && !mazeGrid[current.i - 1][current.j].visited)
-          neighbors.push({ i: current.i - 1, j: current.j, direction: 'top' });
-        if (current.j < gridSize - 1 && !mazeGrid[current.i][current.j + 1].visited)
-          neighbors.push({ i: current.i, j: current.j + 1, direction: 'right' });
-        if (current.i < gridSize - 1 && !mazeGrid[current.i + 1][current.j].visited)
-          neighbors.push({ i: current.i + 1, j: current.j, direction: 'bottom' });
-        if (current.j > 0 && !mazeGrid[current.i][current.j - 1].visited)
-          neighbors.push({ i: current.i, j: current.j - 1, direction: 'left' });
-        
-        if (neighbors.length > 0) {
-          const next = neighbors[Math.floor(Math.random() * neighbors.length)];
-          if (next.direction === 'top') {
-            mazeGrid[current.i][current.j].walls.top = false;
-            mazeGrid[next.i][next.j].walls.bottom = false;
-          } else if (next.direction === 'right') {
-            mazeGrid[current.i][current.j].walls.right = false;
-            mazeGrid[next.i][next.j].walls.left = false;
-          } else if (next.direction === 'bottom') {
-            mazeGrid[current.i][current.j].walls.bottom = false;
-            mazeGrid[next.i][next.j].walls.top = false;
-          } else if (next.direction === 'left') {
-            mazeGrid[current.i][current.j].walls.left = false;
-            mazeGrid[next.i][next.j].walls.right = false;
-          }
-          stack.push(current);
-          current = { i: next.i, j: next.j };
-          mazeGrid[current.i][current.j].visited = true;
-        } else if (stack.length > 0) {
-          current = stack.pop();
-        } else {
-          break;
-        }
-      }
-    }
-    
-    /* Maze Rendering */
-    function renderMaze() {
-      mazeEl.innerHTML = "";
-      for (let i = 0; i < gridSize; i++) {
-        for (let j = 0; j < gridSize; j++) {
-          const cell = document.createElement("div");
-          cell.classList.add("maze-cell");
-          const walls = mazeGrid[i][j].walls;
-          if (!walls.top) cell.classList.add("open-top");
-          if (!walls.right) cell.classList.add("open-right");
-          if (!walls.bottom) cell.classList.add("open-bottom");
-          if (!walls.left) cell.classList.add("open-left");
-          if (i === playerPos.i && j === playerPos.j) cell.classList.add("player");
-          if (i === goalPos.i && j === goalPos.j) cell.classList.add("goal");
-          mazeEl.appendChild(cell);
-        }
-      }
-    }
-    
-    /* Maze Movement & Win Check */
-    function canMove(direction) {
-      const cell = mazeGrid[playerPos.i][playerPos.j];
-      if (direction === "up" && !cell.walls.top) return true;
-      if (direction === "right" && !cell.walls.right) return true;
-      if (direction === "down" && !cell.walls.bottom) return true;
-      if (direction === "left" && !cell.walls.left) return true;
-      return false;
-    }
-    function move(direction) {
-      if (!canMove(direction)) return;
-      if (direction === "up") playerPos.i--;
-      else if (direction === "right") playerPos.j++;
-      else if (direction === "down") playerPos.i++;
-      else if (direction === "left") playerPos.j--;
-      renderMaze();
-      checkWin();
-    }
-    function checkWin() {
-      if (playerPos.i === goalPos.i && playerPos.j === goalPos.j) {
-        setTimeout(() => {
-          alert("Congratulations, you have found my heart!");
-          playerPos = { i: 0, j: 0 };
-          initGame();
-        }, 100);
-      }
-    }
-    function initGame() {
-      playerPos = { i: 0, j: 0 };
-      initMaze();
-      renderMaze();
-    }
-    initGame();
+    });
   </script>
 </body>
 </html>
-
